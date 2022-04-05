@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "Diabetes Analysis"
+author: "Eris Chai and Tianyi Lu"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
