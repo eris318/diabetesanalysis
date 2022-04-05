@@ -3,8 +3,7 @@
 In this project, we will mainly explore three questions about the diabetes.
 1) What do the distribution of diabetes in the United States and relationships of Age, Gender, and Race within diabetes tell us? 
 
-2) How do diabetes patients behave towards medical or personal care associated with diabetes(eg. taking insulin, testing blood sugar, seeing a specialist)   
-   affect maintaining their A1C level. 
+2) How do diabetes patients behave towards medical or personal care associated with diabetes(eg. taking insulin, testing blood sugar, seeing a specialist)affect maintaining their A1C level. 
 
 3) How do risk factors, such as obesity and physical inactivity affect the rate of diabetes in the United States?
 
