@@ -73,6 +73,27 @@ education_mosaic$Education <- fct_relevel(education_mosaic$Education,"< High Sch
                                           "High School","> High School")
 ```
 
+```{r, fig.height=6, fig.width=10}
+# Time Series facet plot
+low <- df_diabetes1[order(df_diabetes1$value),]$region[1:6]
+high <- df_diabetes1[order(df_diabetes1$value,decreasing=T),]$region[1:6]
+
+library(ggplot2)
+library(zoo)
+df_diabetes2 <- diabetes1 %>%
+  dplyr::select(Year,State,Percentage) %>% 
+  filter(State=="Colorado"|State=="Utah"|State=="Massachusetts"|State=="Wisconsin"|
+           State=="Wyoming"|State=="West Virginia"|State=="Alabama"|State=="Mississippi"|
+           State=="Louisiana"|State=="Arkansas")
+df_diabetes2$Year <- as.numeric(df_diabetes2$Year)
+df_diabetes2$State <- fct_relevel(df_diabetes2$State,"Colorado","Utah","Massachusetts",
+                                  "Wisconsin","Wyoming","West Virginia","Alabama",
+                                  "Mississippi","Louisiana","Arkansas")
+ggplot(df_diabetes2,aes(Year,Percentage))+
+  geom_line()+
+  facet_wrap(~State,nrow=2)
+```
+
 ```{r, fig.height=10, fig.width=10}
 # 2nd plot: mosaic plot
 library(gridExtra)
