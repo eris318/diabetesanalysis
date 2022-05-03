@@ -46,3 +46,11 @@ death <- read_tsv("Underlying Cause of Death, 1999-2020.txt")
 death <- death[1:10383,2:14]
 ```
 
+```{r}
+# parallel coordinate plot
+DiagnosedDiabetes<- read.csv("DiagnosedDiabetes.csv",skip = 2)
+Obesity <- read.csv("Obesity.csv",skip = 2)
+PhysicalActivity<- read.csv("PhysicalActivity.csv",skip = 2)
+```
+
+

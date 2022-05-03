@@ -109,7 +109,6 @@ g3 <- grid.grabExpr(mosaic(Diabetes ~ Race, direction = c("v", "h"), race_mosaic
 g4 <- grid.grabExpr(mosaic(Diabetes ~ Education, direction = c("v", "h"), education_mosaic,
        highlighting_fill = c("grey80", "cornflowerblue")))
 grid.arrange(g1,g2,g3,g4)
-
 ```
 ```{r, fig.height=6, fig.width=8}
 # 4th plot: cleveland dot plot
@@ -123,5 +122,17 @@ ggplot(death_state, aes(x = Freq, y = forcats::fct_reorder(State, Freq))) +
   ylab("") +
   theme_linedraw()
 ```
+```{r}
+# 5th plot: parallel coordinate plot
+diabetes_parallel <- left_join(DiagnosedDiabetes,Obesity)
+diabetes_parallel <- left_join(diabetes_parallel,PhysicalActivity)
+colnames(diabetes_parallel) <- c("Year","County_FIPS","County","State","Diagnosed.Diabetes",
+                                 "SVI","Obesity","Physical.Inactivity")
+library(GGally) 
+set.seed(0)
+diabetes_parallel <- diabetes_parallel%>% slice_sample(n = 200)
+ggparcoord(diabetes_parallel, columns = c(5,7,6,8),alphaLines = 0.4)+
+  theme_grey(16)
 ```
+
 
