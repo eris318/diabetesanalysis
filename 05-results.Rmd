@@ -1,1 +1,19 @@
 # Results
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(ggplot2)
+library(choroplethr)
+library(choroplethrMaps)
+
+diabetes1$Percentage <- as.numeric(diabetes1$Percentage)
+
+df_diabetes1 <- diabetes1 %>% 
+  filter(Year=="2018") %>% 
+  transmute(region = tolower(`State`), value = Percentage) %>% 
+  as.data.frame()
+state_choropleth(df_diabetes1,num_colors = 1)
+```
+
