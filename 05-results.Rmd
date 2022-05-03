@@ -85,4 +85,5 @@ g3 <- grid.grabExpr(mosaic(Diabetes ~ Race, direction = c("v", "h"), race_mosaic
 g4 <- grid.grabExpr(mosaic(Diabetes ~ Education, direction = c("v", "h"), education_mosaic,
        highlighting_fill = c("grey80", "cornflowerblue")))
 grid.arrange(g1,g2,g3,g4)
+
 ```
