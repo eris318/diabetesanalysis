@@ -1,6 +1,7 @@
 # Results
 
 ```{r}
+# 1st plot: map
 library(dplyr)
 library(tidyr)
 library(tibble)
@@ -17,3 +18,71 @@ df_diabetes1 <- diabetes1 %>%
 state_choropleth(df_diabetes1,num_colors = 1)
 ```
 
+```{r}
+# 2nd plot: mosaic
+library(magrittr)
+age_2018 <- age %>% filter(Year=="2018")
+age_2018 <- age_2018[,-1]
+age_2018 <- cbind(Diabetes=c("Yes"),age_2018)
+age_2018[nrow(age_2018)+1,] <- c("No",100-age_2018[[2]],100-age_2018[[3]],
+                                 100-age_2018[[4]],100-age_2018[[5]])
+age_2018$`18-44` <-  as.numeric(age_2018$`18-44`)
+age_2018$`45-64` <-  as.numeric(age_2018$`45-64`)
+age_2018$`65-74` <-  as.numeric(age_2018$`65-74`)
+age_2018$over74 <-  as.numeric(age_2018$over74)
+
+gender_2018 <- gender %>% filter(Year=="2018")
+gender_2018 <- gender_2018[,-1]
+gender_2018 <- cbind(Diabetes=c("Yes"),gender_2018)
+gender_2018[nrow(gender_2018)+1,] <- c("No",100-gender_2018[[2]],100-gender_2018[[3]])
+gender_2018$Male <-  as.numeric(gender_2018$Male)
+gender_2018$Female <-  as.numeric(gender_2018$Female)
+
+race_2018 <- race %>% filter(Year=="2018")
+race_2018 <- race_2018[,-1]
+race_2018 <- cbind(Diabetes=c("Yes"),race_2018)
+race_2018[nrow(race_2018)+1,] <- c("No",100-race_2018[[2]],100-race_2018[[3]],
+                                 100-race_2018[[4]],100-race_2018[[5]])
+race_2018$White<-  as.numeric(race_2018$White)
+race_2018$Black <-  as.numeric(race_2018$Black)
+race_2018$Asian <-  as.numeric(race_2018$Asian)
+race_2018$Hispanic <-  as.numeric(race_2018$Hispanic)
+
+education_2018 <- education %>% filter(Year=="2018")
+education_2018 <- education_2018[,-1]
+education_2018 <- cbind(Diabetes=c("Yes"),education_2018)
+education_2018[nrow(education_2018)+1,] <- c("No",100-education_2018[[2]],100-education_2018[[3]],100-education_2018[[4]])
+education_2018$`< High School`<-  as.numeric(education_2018$`< High School`)
+education_2018$`High School` <-  as.numeric(education_2018$`High School`)
+education_2018$`> High School` <-  as.numeric(education_2018$`> High School`)
+
+
+age_mosaic <- age_2018 %>%
+  gather(key = "Age", value = "Freq", -Diabetes)
+gender_mosaic <- gender_2018 %>%
+  gather(key = "Gender", value = "Freq", -Diabetes)
+race_mosaic <- race_2018 %>%
+  gather(key = "Race", value = "Freq", -Diabetes)
+education_mosaic <- education_2018 %>%
+  gather(key = "Education", value = "Freq", -Diabetes)
+
+library(vcd)
+library(forcats)
+race_mosaic$Race <- fct_relevel(race_mosaic$Race,"White","Black","Asian","Hispanic")
+education_mosaic$Education <- fct_relevel(education_mosaic$Education,"< High School",
+                                          "High School","> High School")
+```
+
+```{r, fig.height=10, fig.width=10}
+# 2nd plot: mosaic plot
+library(gridExtra)
+g1 <- grid.grabExpr(mosaic(Diabetes ~ Age, direction = c("v", "h"), age_mosaic,
+       highlighting_fill = c("grey80", "cornflowerblue")))
+g2 <- grid.grabExpr(mosaic(Diabetes ~ Gender, direction = c("v", "h"), gender_mosaic,
+       highlighting_fill = c("grey80", "cornflowerblue")))
+g3 <- grid.grabExpr(mosaic(Diabetes ~ Race, direction = c("v", "h"), race_mosaic,
+       highlighting_fill = c("grey80", "cornflowerblue")))
+g4 <- grid.grabExpr(mosaic(Diabetes ~ Education, direction = c("v", "h"), education_mosaic,
+       highlighting_fill = c("grey80", "cornflowerblue")))
+grid.arrange(g1,g2,g3,g4)
+```
