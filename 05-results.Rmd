@@ -18,8 +18,33 @@ df_diabetes1 <- diabetes1 %>%
 state_choropleth(df_diabetes1,num_colors = 1)
 ```
 
+
+
+```{r, fig.height=6, fig.width=10}
+# 2nd plot: time series facet plot
+low <- df_diabetes1[order(df_diabetes1$value),]$region[1:6]
+high <- df_diabetes1[order(df_diabetes1$value,decreasing=T),]$region[1:6]
+
+library(ggplot2)
+library(zoo)
+library(forcats)
+df_diabetes2 <- diabetes1 %>%
+  dplyr::select(Year,State,Percentage) %>% 
+  filter(State=="Colorado"|State=="Utah"|State=="Massachusetts"|State=="Wisconsin"|
+           State=="Wyoming"|State=="West Virginia"|State=="Alabama"|State=="Mississippi"|
+           State=="Louisiana"|State=="Arkansas")
+df_diabetes2$Year <- as.numeric(df_diabetes2$Year)
+df_diabetes2$State <- fct_relevel(df_diabetes2$State,"Colorado","Utah","Massachusetts",
+                                  "Wisconsin","Wyoming","West Virginia","Alabama",
+                                  "Mississippi","Louisiana","Arkansas")
+ggplot(df_diabetes2,aes(Year,Percentage))+
+  geom_line()+
+  facet_wrap(~State,nrow=2)
+
+```
+
 ```{r}
-# 2nd plot: mosaic
+# 3rd plot: mosaic
 library(magrittr)
 age_2018 <- age %>% filter(Year=="2018")
 age_2018 <- age_2018[,-1]
@@ -66,37 +91,15 @@ race_mosaic <- race_2018 %>%
 education_mosaic <- education_2018 %>%
   gather(key = "Education", value = "Freq", -Diabetes)
 
-library(vcd)
-library(forcats)
-race_mosaic$Race <- fct_relevel(race_mosaic$Race,"White","Black","Asian","Hispanic")
-education_mosaic$Education <- fct_relevel(education_mosaic$Education,"< High School",
+race_mosaic$Race <- forcats::fct_relevel(race_mosaic$Race,"White","Black","Asian","Hispanic")
+education_mosaic$Education <- forcats::fct_relevel(education_mosaic$Education,"< High School",
                                           "High School","> High School")
 ```
 
-```{r, fig.height=6, fig.width=10}
-# Time Series facet plot
-low <- df_diabetes1[order(df_diabetes1$value),]$region[1:6]
-high <- df_diabetes1[order(df_diabetes1$value,decreasing=T),]$region[1:6]
-
-library(ggplot2)
-library(zoo)
-df_diabetes2 <- diabetes1 %>%
-  dplyr::select(Year,State,Percentage) %>% 
-  filter(State=="Colorado"|State=="Utah"|State=="Massachusetts"|State=="Wisconsin"|
-           State=="Wyoming"|State=="West Virginia"|State=="Alabama"|State=="Mississippi"|
-           State=="Louisiana"|State=="Arkansas")
-df_diabetes2$Year <- as.numeric(df_diabetes2$Year)
-df_diabetes2$State <- fct_relevel(df_diabetes2$State,"Colorado","Utah","Massachusetts",
-                                  "Wisconsin","Wyoming","West Virginia","Alabama",
-                                  "Mississippi","Louisiana","Arkansas")
-ggplot(df_diabetes2,aes(Year,Percentage))+
-  geom_line()+
-  facet_wrap(~State,nrow=2)
-```
-
 ```{r, fig.height=10, fig.width=10}
-# 2nd plot: mosaic plot
+# 3rd plot: mosaic plot
 library(gridExtra)
+library(vcd)
 g1 <- grid.grabExpr(mosaic(Diabetes ~ Age, direction = c("v", "h"), age_mosaic,
        highlighting_fill = c("grey80", "cornflowerblue")))
 g2 <- grid.grabExpr(mosaic(Diabetes ~ Gender, direction = c("v", "h"), gender_mosaic,
@@ -108,3 +111,17 @@ g4 <- grid.grabExpr(mosaic(Diabetes ~ Education, direction = c("v", "h"), educat
 grid.arrange(g1,g2,g3,g4)
 
 ```
+```{r, fig.height=6, fig.width=8}
+# 4th plot: cleveland dot plot
+death_state <- death %>% 
+  group_by(State) %>% 
+  summarise(Freq=sum(Deaths)/sum(Population)*100000)
+ggplot(death_state, aes(x = Freq, y = forcats::fct_reorder(State, Freq))) +
+  geom_point(color = "blue") +
+  ggtitle("Death due to Diabetes per 100000 People") +
+  xlab("Number of Deaths")+
+  ylab("") +
+  theme_linedraw()
+```
+```
+

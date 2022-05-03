@@ -39,4 +39,10 @@ education <- diabetes_education %>%
 colnames(education) <- c("Year","< High School","High School",
                       "> High School")
 ```
+```{r}
+# Cleveland Dot Plot data
+library(readr)
+death <- read_tsv("Underlying Cause of Death, 1999-2020.txt")
+death <- death[1:10383,2:14]
+```
 
