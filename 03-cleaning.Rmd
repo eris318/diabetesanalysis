@@ -1,1 +1,7 @@
 # Data transformation
+```{r}
+diabetes1 <- read.csv("DiabetesAtlasData-map.csv",header = FALSE)
+diabetes1 <- diabetes1[3:1029,]
+names(diabetes1) <- diabetes1[1,]
+diabetes1 <- diabetes1[-1,]
+```
