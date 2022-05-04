@@ -15,12 +15,13 @@ df_diabetes1 <- diabetes1 %>%
   filter(Year=="2018") %>% 
   transmute(region = tolower(`State`), value = Percentage) %>% 
   as.data.frame()
-state_choropleth(df_diabetes1,num_colors = 1)
+state_choropleth(df_diabetes1,num_colors = 9,legend = "Percentage",
+                 title = "Percentage of Diagnosed Diabetes: 2018 by State")
 ```
 
 
 
-```{r, fig.height=6, fig.width=10}
+```{r}
 # 2nd plot: time series facet plot
 low <- df_diabetes1[order(df_diabetes1$value),]$region[1:6]
 high <- df_diabetes1[order(df_diabetes1$value,decreasing=T),]$region[1:6]
@@ -39,7 +40,10 @@ df_diabetes2$State <- fct_relevel(df_diabetes2$State,"Colorado","Utah","Massachu
                                   "Mississippi","Louisiana","Arkansas")
 ggplot(df_diabetes2,aes(Year,Percentage))+
   geom_line()+
-  facet_wrap(~State,nrow=2)
+  facet_wrap(~State,nrow=2)+
+  labs(title="Change of Diagnosed Diabetes Percentage: 2000-2018 ",
+       subtitle = "Top: 5 States with the Lowest Diabetes Percentage in 2018
+Bottom: 5 States with the Highest Diabetes Percentage in 2018")
 
 ```
 
