@@ -57,9 +57,11 @@ death <- death[1:10383,2:14]
 
 ```{r}
 # parallel coordinate plot
-DiagnosedDiabetes<- read.csv("DiagnosedDiabetes.csv",skip = 2)
-Obesity <- read.csv("Obesity.csv",skip = 2)
-PhysicalActivity<- read.csv("PhysicalActivity.csv",skip = 2)
+DiagnosedDiabetes_new <- read.csv("DiabetesAtlasData_Diagnosed Diabetes.csv",skip = 2)
+Obesity_new <- read.csv("DiabetesAtlasData _Obesity.csv",skip = 2)
+PhysicalInactivity_new <- read.csv("DiabetesAtlasData_Physical_Inactivity.csv",skip = 2)
+HypertensionAwareness_new <- read.csv("DiabetesAtlasData_Hypertension_Awareness.csv",skip=2)
+HighCholesterolAwareness_new <- read.csv("DiabetesAtlasData_High_Cholesterol_Awareness.csv",skip=2)
 ```
 
 ```{r}

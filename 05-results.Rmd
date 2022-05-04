@@ -209,16 +209,31 @@ ggplot(A1C_level, aes(DID260, DIQ280)) +
 
 ```
 
-```{r}
+```{r, fig.height=8, fig.width=10}
 # 8th plot: parallel coordinate plot
-diabetes_parallel <- left_join(DiagnosedDiabetes,Obesity)
-diabetes_parallel <- left_join(diabetes_parallel,PhysicalActivity)
-colnames(diabetes_parallel) <- c("Year","County_FIPS","County","State","Diagnosed.Diabetes",
-                                 "SVI","Obesity","Physical.Inactivity")
+DiagnosedDiabetes_new <- DiagnosedDiabetes_new %>% dplyr::select(State,Percentage)
+colnames(DiagnosedDiabetes_new) <- c("State","Diagnosed
+Diabetes")
+Obesity_new <- Obesity_new %>% dplyr::select(State,Percentage)
+colnames(Obesity_new) <- c("State","Obesity")
+PhysicalInactivity_new <- PhysicalInactivity_new %>% dplyr::select(State,Percentage)
+colnames(PhysicalInactivity_new) <- c("State","Physical
+Inactivity")
+HypertensionAwareness_new <- HypertensionAwareness_new  %>% dplyr::select(State,Percentage)
+colnames(HypertensionAwareness_new) <- c("State","Hypertension
+Awareness")
+HighCholesterolAwareness_new <- HighCholesterolAwareness_new %>% dplyr::select(State,Percentage)
+colnames(HighCholesterolAwareness_new) <- c("State","High Cholesterol
+Awareness")
+
+diabetes_parallel_new <- left_join(DiagnosedDiabetes_new,Obesity_new)
+diabetes_parallel_new <- left_join(diabetes_parallel_new,PhysicalInactivity_new)
+diabetes_parallel_new <- left_join(diabetes_parallel_new,HypertensionAwareness_new)
+diabetes_parallel_new <- left_join(diabetes_parallel_new,HighCholesterolAwareness_new)
+
 library(GGally) 
-set.seed(0)
-diabetes_parallel <- diabetes_parallel%>% slice_sample(n = 200)
-ggparcoord(diabetes_parallel, columns = c(5,7,6,8),alphaLines = 0.4)+
+diabetes_parallel_new <- diabetes_parallel_new[-1,]
+ggparcoord(diabetes_parallel_new, columns = c(5,2,6,3,4))+
   theme_grey(16)
 ```
 
