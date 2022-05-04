@@ -1,4 +1,13 @@
 # Data transformation
+
+In this data transformation part, we will separately introduce how we clean the three source of data.  
+
+For the first data source [U.S. Diabetes Surveillance System](https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html), we can see that for every dataset we downloaded in this way, there are two useless rows at the beginning, one empty column at the left, and one row showing the website at the bottom. Initially, we use `skip=2` to set the according class being the column name in our dataset, such as the using the `Male...Percentage` being the column name. Next, we see there are some messy code before the actual column name, such as #, so we change column name to the concise label using the commands under magriittr library. Finally we can get the data in great format. We use the same process to deal with the PhysicalActivity.csv, Obeisity, and DiagnosedDiabetes.csv files.  
+
+The second data source is the [National Center for Health Statistics](https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Questionnaire). The data downloaded from there are in `.XPT` form, so we use `read.xport` command under foreign library in R to read them.  
+
+The third data source we used is from [CDC WONDER](https://wonder.cdc.gov/ucd-icd10.html). And the data is in the `.txt file` from, so we use readr library and the `read_tsv` to read them into R. After import the file into R, we notice there is an empty column at the right, and there are huge amount of metadata at the bottom. We select the useful row and column into our own data named death.
+
 ```{r}
 # map data
 diabetes1 <- read.csv("DiabetesAtlasData-map.csv",header = FALSE)

@@ -100,6 +100,10 @@
             <section class="normal" id="section-">
 <div id="data-transformation" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation<a href="data-transformation.html#data-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this data transformation part, we will separately introduce how we clean the three source of data.</p>
+<p>For the first data source <a href="https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html">U.S. Diabetes Surveillance System</a>, we can see that for every dataset we downloaded in this way, there are two useless rows at the beginning, one empty column at the left, and one row showing the website at the bottom. Initially, we use <code>skip=2</code> to set the according class being the column name in our dataset, such as the using the <code>Male...Percentage</code> being the column name. Next, we see there are some messy code before the actual column name, such as #, so we change column name to the concise label using the commands under magriittr library. Finally we can get the data in great format. We use the same process to deal with the PhysicalActivity.csv, Obeisity, and DiagnosedDiabetes.csv files.</p>
+<p>The second data source is the <a href="https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Questionnaire">National Center for Health Statistics</a>. The data downloaded from there are in <code>.XPT</code> form, so we use <code>read.xport</code> command under foreign library in R to read them.</p>
+<p>The third data source we used is from <a href="https://wonder.cdc.gov/ucd-icd10.html">CDC WONDER</a>. And the data is in the <code>.txt file</code> from, so we use readr library and the <code>read_tsv</code> to read them into R. After import the file into R, we notice there is an empty column at the right, and there are huge amount of metadata at the bottom. We select the useful row and column into our own data named death.</p>
 
 </div>
             </section>
