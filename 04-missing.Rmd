@@ -18,7 +18,7 @@ diabetes_yes_missing <- diabetes_yes %>%
 
 
 ggplot(diabetes_yes_missing,aes(x = fct_rev(fct_inorder(key)), y = SEQN, fill = missing)) +
-  geom_tile(stat = "identity",position = "stack") + 
+  geom_tile(stat = "identity",position = "fill") + 
   scale_fill_manual(values = c("red","black"))+
   coord_flip()+
   theme_classic()+
