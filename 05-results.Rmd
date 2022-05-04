@@ -155,6 +155,7 @@ ggplot(A1C_level, aes(DID260, DIQ280)) +
   ylab("A1C level")+
   xlab("Times of checking blood sugar")+
   theme_grey(16)
+
 ```
 
 ```{r}
