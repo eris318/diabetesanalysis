@@ -43,8 +43,21 @@ ggplot(df_diabetes2,aes(Year,Percentage))+
 
 ```
 
+```{r, fig.height=6, fig.width=8}
+# 3rd plot: cleveland dot plot
+death_state <- death %>% 
+  group_by(State) %>% 
+  summarise(Freq=sum(Deaths)/sum(Population)*100000)
+ggplot(death_state, aes(x = Freq, y = forcats::fct_reorder(State, Freq))) +
+  geom_point(color = "blue") +
+  ggtitle("Death due to Diabetes per 100000 People") +
+  xlab("Number of Deaths")+
+  ylab("") +
+  theme_linedraw()
+```
+
 ```{r}
-# 3rd plot: mosaic
+# 4th plot: mosaic
 library(magrittr)
 age_2018 <- age %>% filter(Year=="2018")
 age_2018 <- age_2018[,-1]
@@ -97,7 +110,7 @@ education_mosaic$Education <- forcats::fct_relevel(education_mosaic$Education,"<
 ```
 
 ```{r, fig.height=10, fig.width=10}
-# 3rd plot: mosaic plot
+# 4th plot: mosaic plot
 library(gridExtra)
 library(vcd)
 g1 <- grid.grabExpr(mosaic(Diabetes ~ Age, direction = c("v", "h"), age_mosaic,
@@ -110,20 +123,24 @@ g4 <- grid.grabExpr(mosaic(Diabetes ~ Education, direction = c("v", "h"), educat
        highlighting_fill = c("grey80", "cornflowerblue")))
 grid.arrange(g1,g2,g3,g4)
 ```
-```{r, fig.height=6, fig.width=8}
-# 4th plot: cleveland dot plot
-death_state <- death %>% 
-  group_by(State) %>% 
-  summarise(Freq=sum(Deaths)/sum(Population)*100000)
-ggplot(death_state, aes(x = Freq, y = forcats::fct_reorder(State, Freq))) +
-  geom_point(color = "blue") +
-  ggtitle("Death due to Diabetes per 100000 People") +
-  xlab("Number of Deaths")+
-  ylab("") +
-  theme_linedraw()
-```
 ```{r}
-# 5th plot: parallel coordinate plot
+# 5th plot: histogram
+library(foreign)
+questionnaire18 <- read.xport("17_18.XPT")
+diabetes_yes <- questionnaire18[questionnaire18$DIQ010==1,]
+diabetes_first_age <- diabetes_yes[!is.na(diabetes_yes$DID040),]
+diabetes_first_age1 <- diabetes_first_age[!diabetes_first_age$DID040==999,]
+diabetes_first_age1 <- diabetes_first_age1[!diabetes_first_age1$DID040==666,]
+
+ggplot(diabetes_first_age1, aes(DID040)) +
+  geom_histogram(bins = 40,color = "wheat4", fill = "pink")+
+  ggtitle("Age when first told you had diabetes")+
+  xlab("Age")
+
+```
+
+```{r}
+# 6th plot: parallel coordinate plot
 diabetes_parallel <- left_join(DiagnosedDiabetes,Obesity)
 diabetes_parallel <- left_join(diabetes_parallel,PhysicalActivity)
 colnames(diabetes_parallel) <- c("Year","County_FIPS","County","State","Diagnosed.Diabetes",

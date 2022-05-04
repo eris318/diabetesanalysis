@@ -53,4 +53,10 @@ Obesity <- read.csv("Obesity.csv",skip = 2)
 PhysicalActivity<- read.csv("PhysicalActivity.csv",skip = 2)
 ```
 
+```{r}
+# histogram data
+library(foreign)
+questionnaire18 <- read.xport("17_18.XPT")
+```
+
 
