@@ -7,3 +7,4 @@ site: bookdown::bookdown_site
 
 # Introduction
 
+According to a report published by the Endocrine Society at the beginning of year 2022, almost 30 million Americans have diabetes, a disease in which there is too much sugar in the patients’ bloodstream. There are two types of Chronic diabetes, which are type 1 diabetes and type 2 diabetes, and they are usually non-reversible. Meanwhile, the prediabetes and gestational diabetes are potentially reversible diabetes. Diabetes patients are at risk of developing other severe complications, such as heart attacks, blurred vision, Kidney disease and failure, etc. Motivated by the this report, we decided to choose the topic on Diabetes, which could give us some insights on the background of diabetes.

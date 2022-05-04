@@ -140,7 +140,25 @@ ggplot(diabetes_first_age1, aes(DID040)) +
 ```
 
 ```{r}
-# 6th plot: parallel coordinate plot
+# 6th plot: boxplot
+A1C_level <- diabetes_yes[!is.na(diabetes_yes$DIQ280),]
+A1C_level <- A1C_level[!A1C_level$DIQ280==777,]
+A1C_level <- A1C_level[!A1C_level$DIQ280==999,]
+A1C_level <- A1C_level[!is.na(A1C_level$DID260),]
+A1C_level <- A1C_level[!A1C_level$DID260==999,]
+A1C_level <- A1C_level %>% 
+  dplyr::select(DIQ280,DID260)
+A1C_level$DID260 <- as.character(A1C_level$DID260)
+A1C_level$DID260 <- fct_relevel(A1C_level$DID260,"0","1","2","3","4","5","6","7","10")
+ggplot(A1C_level, aes(DID260, DIQ280)) + 
+  geom_boxplot() + 
+  ylab("A1C level")+
+  xlab("Times of checking blood sugar")+
+  theme_grey(16)
+```
+
+```{r}
+# 7th plot: parallel coordinate plot
 diabetes_parallel <- left_join(DiagnosedDiabetes,Obesity)
 diabetes_parallel <- left_join(diabetes_parallel,PhysicalActivity)
 colnames(diabetes_parallel) <- c("Year","County_FIPS","County","State","Diagnosed.Diabetes",
