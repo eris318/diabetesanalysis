@@ -44,7 +44,6 @@ ggplot(df_diabetes2,aes(Year,Percentage))+
   labs(title="Change of Diagnosed Diabetes Percentage: 2000-2018 ",
        subtitle = "Top: 5 States with the Lowest Diabetes Percentage in 2018
 Bottom: 5 States with the Highest Diabetes Percentage in 2018")
-
 ```
 
 ```{r, fig.height=6, fig.width=8}
