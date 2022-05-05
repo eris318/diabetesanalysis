@@ -2,22 +2,17 @@
 
 In this data transformation part, we will separately introduce how we clean the three source of data.  
 
-For the first data source [U.S. Diabetes Surveillance System](https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html), we can see that for every dataset we downloaded in this way, there are two useless rows at the beginning, one empty column at the left, and one row showing the website at the bottom. Initially, we use `skip=2` to set the according class being the column name in our dataset, such as the using the `Male...Percentage` being the column name. Next, we see there are some messy code before the actual column name, such as #, so we change column name to the concise label using the commands under magriittr library. Finally we can get the data in great format. We use the same process to deal with the PhysicalActivity.csv, Obeisity, and DiagnosedDiabetes.csv files.  
+For the first data source [U.S. Diabetes Surveillance System](https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html), we can see that for every CSV file we downloaded in this way, there are two useless rows on the top, one empty column at the end, and one row showing the website at the bottom. Initially, we use skip=2 to delete the top two useless rows. Then, we found in some files the column names starting with `X` in the front and containing symbols such as `...` inside. So, we change the column names to more concise and understandable labels. Finally, we can get the data in a nicer format. We use the same process to deal with all the data from [U.S. Diabetes Surveillance System](https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html), such as Physical Inactivity, Obesity, and Diagnosed Diabetes files.  
 
-The second data source is the [National Center for Health Statistics](https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Questionnaire). The data downloaded from there are in `.XPT` form, so we use `read.xport` command under foreign library in R to read them.  
+The second data source is the [National Center for Health Statistics](https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Questionnaire). The data downloaded from there are in .XPT form, so we use read.xport command under foreign library in R to read them.  
 
-The third data source we used is from [CDC WONDER](https://wonder.cdc.gov/ucd-icd10.html). And the data is in the `.txt file` from, so we use readr library and the `read_tsv` to read them into R. After import the file into R, we notice there is an empty column at the right, and there are huge amount of metadata at the bottom. We select the useful row and column into our own data named death.
-
-```{r}
-# map data
-diabetes1 <- read.csv("DiabetesAtlasData-map.csv",header = FALSE)
-diabetes1 <- diabetes1[3:1029,]
-names(diabetes1) <- diabetes1[1,]
-diabetes1 <- diabetes1[-1,]
-```
+The third data source we used is [CDC WONDER](https://wonder.cdc.gov/ucd-icd10.html). And the data is in the form of .txt file, so we use the readr library and the read_tsv to read them into R. After importing the file into R, we notice there is an empty bote column on the left, and there is a huge amount of metadata at the bottom. We delect the empty note column and the rows contain metadata.
 
 ```{r}
-# mosaic data
+# data from U.S. Diabetes Surveillance System
+diabetes1 <- read.csv("DiabetesAtlasData-map.csv",skip = 2)
+diabetes1 <- diabetes1[1:1026,]
+
 diabetes_genders <- read.csv("DiabetesAtlasData_gender.csv",skip=2)
 diabetes_age <- read.csv("DiabetesAtlasData_age.csv",skip=2)
 diabetes_race <- read.csv("DiabetesAtlasData_race.csv",skip=2)
@@ -47,39 +42,35 @@ education <- diabetes_education %>%
                 `X..High.School...Percentage.1`)
 colnames(education) <- c("Year","< High School","High School",
                       "> High School")
-```
-```{r}
-# Cleveland Dot Plot data
-library(readr)
-death <- read_tsv("Underlying Cause of Death, 1999-2020.txt")
-death <- death[1:10383,2:14]
-```
 
-```{r}
-# parallel coordinate plot
 DiagnosedDiabetes_new <- read.csv("DiabetesAtlasData_Diagnosed Diabetes.csv",skip = 2)
 Obesity_new <- read.csv("DiabetesAtlasData _Obesity.csv",skip = 2)
 PhysicalInactivity_new <- read.csv("DiabetesAtlasData_Physical_Inactivity.csv",skip = 2)
 HypertensionAwareness_new <- read.csv("DiabetesAtlasData_Hypertension_Awareness.csv",skip=2)
 HighCholesterolAwareness_new <- read.csv("DiabetesAtlasData_High_Cholesterol_Awareness.csv",skip=2)
+
+DiagnosedDiabetes<- read.csv("DiagnosedDiabetes.csv",skip = 2)
+Obesity <- read.csv("Obesity.csv",skip = 2)
+PhysicalActivity<- read.csv("PhysicalActivity.csv",skip = 2)
 ```
 
+
 ```{r}
-# histogram data
+# questionnaire result from National Center for Health Statistics
 library(foreign)
 questionnaire18 <- read.xport("17_18.XPT")
 ```
 
 ```{r}
+# data from CDC WONDER
+library(readr)
+death <- read_tsv("Underlying Cause of Death, 1999-2020.txt")
+death <- death[1:10383,2:14]
 death_year <- read_tsv("Underlying Cause of Death, 1999-2020_year.txt")
 death_year <- death_year[1:1122,2:8]
 death_month <- read_tsv("Underlying Cause of Death, 1999-2020_month.txt")
 death_month <- death_month[1:13067,2:8]
 ```
 
-```{r}
-DiagnosedDiabetes<- read.csv("DiagnosedDiabetes.csv",skip = 2)
-Obesity <- read.csv("Obesity.csv",skip = 2)
-PhysicalActivity<- read.csv("PhysicalActivity.csv",skip = 2)
-```
+
 
