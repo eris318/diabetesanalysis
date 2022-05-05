@@ -2,10 +2,8 @@
 ```{r}
 library(plotly)
 
-death_year <- read_tsv("Underlying Cause of Death, 1999-2020_year.txt")
-death_year <- death_year[1:1122,2:8]
 death_year <- death_year %>% 
-  filter(Year==2000|Year==2001|Year==2002|Year==2003|Year==2004|Year==2005|
+  dplyr::filter(Year==2000|Year==2001|Year==2002|Year==2003|Year==2004|Year==2005|
            Year==2006|Year==2007|Year==2008|Year==2009|Year==2010|Year==2011|
            Year==2012|Year==2013|Year==2014|Year==2015|Year==2016|Year==2017|
            Year==2018)
@@ -15,7 +13,8 @@ diabetes2 <- diabetes2[!diabetes2$State=="Puerto Rico",]
 diabetes2 <- diabetes2[!diabetes2$State=="Virgin Islands of the U.S.",]
 diabetes2 <- diabetes2[1:968,]
 diabetes_death <-  left_join(death_year,diabetes2)
-diabetes_death <- diabetes_death %>% mutate(Freq=Deaths/Population*100000)
+diabetes_death <- diabetes_death %>% 
+  mutate(Freq=Deaths/Population*100000)
 diabetes_death$State <- fct_reorder(diabetes_death$State,diabetes_death$`State Code`)
 
 diabetes_death %>%

@@ -238,6 +238,18 @@ ggparcoord(diabetes_parallel_new, columns = c(5,2,6,3,4))+
   theme_grey(16)
 ```
 ```{r}
+diabetes_matrix <- left_join(DiagnosedDiabetes,Obesity)
+diabetes_matrix <- left_join(diabetes_matrix,PhysicalActivity)
+colnames(diabetes_matrix) <- c("Year","County_FIPS","County","State","Diagnosed.Diabetes",
+                                 "SVI","Obesity","Physical.Inactivity")
+diabetes_matrix <- diabetes_matrix %>%
+  dplyr::select(Diagnosed.Diabetes,SVI,Obesity,Physical.Inactivity)
+set.seed(0)
+diabetes_matrix <- diabetes_matrix%>% slice_sample(n = 200)
+plot(diabetes_matrix)
+```
+
+```{r}
 library(zoo)
 library(lubridate)
 death_month <- read_tsv("Underlying Cause of Death, 1999-2020_month.txt")

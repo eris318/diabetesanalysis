@@ -77,4 +77,9 @@ death_month <- read_tsv("Underlying Cause of Death, 1999-2020_month.txt")
 death_month <- death_month[1:13067,2:8]
 ```
 
+```{r}
+DiagnosedDiabetes<- read.csv("DiagnosedDiabetes.csv",skip = 2)
+Obesity <- read.csv("Obesity.csv",skip = 2)
+PhysicalActivity<- read.csv("PhysicalActivity.csv",skip = 2)
+```
 
