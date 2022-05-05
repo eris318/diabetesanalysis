@@ -10,9 +10,13 @@ death_year <- death_year %>%
            Year==2012|Year==2013|Year==2014|Year==2015|Year==2016|Year==2017|
            Year==2018)
 diabetes1$Year <- as.numeric(diabetes1$Year)
-diabetes_death <-  left_join(death_year,diabetes1)
+diabetes2 <- diabetes1[!diabetes1$State=="Guam",]
+diabetes2 <- diabetes2[!diabetes2$State=="Puerto Rico",]
+diabetes2 <- diabetes2[!diabetes2$State=="Virgin Islands of the U.S.",]
+diabetes2 <- diabetes2[1:968,]
+diabetes_death <-  left_join(death_year,diabetes2)
 diabetes_death <- diabetes_death %>% mutate(Freq=Deaths/Population*100000)
-
+diabetes_death$State <- fct_reorder(diabetes_death$State,diabetes_death$`State Code`)
 
 diabetes_death %>%
   plot_ly(
