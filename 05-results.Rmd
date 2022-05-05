@@ -263,7 +263,6 @@ death_month_total$Date <- as.yearmon(death_month_total$`Month Code`, "%Y/%m")
 ggplot(death_month_total, aes(Date, DeathsTotal)) + 
   geom_line()
 
-
 library(plotly)
 plot_ly(
     death_month_total, x = ~Date, y = ~DeathsTotal,
@@ -273,6 +272,5 @@ plot_ly(
     hoverinfo = 'text',
     text = ~paste(`Month Code`)
 )
-
 ```
 
