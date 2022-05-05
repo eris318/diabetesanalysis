@@ -73,6 +73,8 @@ questionnaire18 <- read.xport("17_18.XPT")
 ```{r}
 death_year <- read_tsv("Underlying Cause of Death, 1999-2020_year.txt")
 death_year <- death_year[1:1122,2:8]
+death_month <- read_tsv("Underlying Cause of Death, 1999-2020_month.txt")
+death_month <- death_month[1:13067,2:8]
 ```
 
 

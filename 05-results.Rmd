@@ -237,5 +237,28 @@ diabetes_parallel_new <- diabetes_parallel_new[-1,]
 ggparcoord(diabetes_parallel_new, columns = c(5,2,6,3,4))+
   theme_grey(16)
 ```
+```{r}
+library(zoo)
+library(lubridate)
+death_month <- read_tsv("Underlying Cause of Death, 1999-2020_month.txt")
+death_month <- death_month[1:13067,2:8]
+death_month_total <- death_month %>% 
+  group_by(`Month Code`) %>% 
+  summarise(DeathsTotal=sum(Deaths))
+death_month_total$Date <- as.yearmon(death_month_total$`Month Code`, "%Y/%m")
+ggplot(death_month_total, aes(Date, DeathsTotal)) + 
+  geom_line()
 
+
+library(plotly)
+plot_ly(
+    death_month_total, x = ~Date, y = ~DeathsTotal,
+    type = 'scatter',
+    mode = 'lines+markers',
+    # Hover text:
+    hoverinfo = 'text',
+    text = ~paste(`Month Code`)
+)
+
+```
 
