@@ -209,6 +209,7 @@ ggplot(A1C_level, aes(DID260, DIQ280)) +
 
 ```
 
+
 ```{r, fig.height=8, fig.width=10}
 # 8th plot: parallel coordinate plot
 DiagnosedDiabetes_new <- DiagnosedDiabetes_new %>% dplyr::select(State,Percentage)

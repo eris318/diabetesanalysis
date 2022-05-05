@@ -70,4 +70,9 @@ library(foreign)
 questionnaire18 <- read.xport("17_18.XPT")
 ```
 
+```{r}
+death_year <- read_tsv("Underlying Cause of Death, 1999-2020_year.txt")
+death_year <- death_year[1:1122,2:8]
+```
+
 
