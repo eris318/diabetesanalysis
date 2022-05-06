@@ -11,9 +11,12 @@ library(redav)
 plot_missing(diabetes_new, percent = FALSE)
 ```
 <p>&nbsp;</p>
-The first missing value plot shows the missing pattern for our first data from [U.S. Diabetes Surveillance System](https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html). 
+The first missing value plot shows the missing pattern for our first data from [U.S. Diabetes Surveillance System](https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html).  
+
 We can see there are 50 rows of complete cases and 1 row with missing values of percentage, Lower limit, and Upper limit, and this row is Virgin Islands of the U.S. Virgin Islands of the U.S is a region consisting of some small islands in the Atlantic Ocean, where there are only one hundred thousand people there, and they are usually underrepresented in national estimates. Our data for the percentage of people with diabetes is collected based on the questionnaires sent to citizens of the United States. So, it is normal that this kind of small region has missing values.  
+
 Since all other States and regions have complete data, so the missing values from a small region like the Virgin Islands of the U.S. will not affect the general analysis of diabetes in the whole United States population. We can choose to not include the missing value for the Virgin Islands of the U.S. when we analyze our data. So, we can still use this data and analyze it without loss of generality.  
+
 All other data files do from [U.S. Diabetes Surveillance System](https://gis.cdc.gov/grasp/diabetes/DiabetesAtlas.html) not have missing values.
 
 ```{r}
@@ -33,10 +36,12 @@ ggplot(diabetes_yes_missing,aes(x = fct_rev(fct_inorder(key)), y = SEQN, fill = 
   ylab("Respondent sequence number")
 ```
 <p>&nbsp;</p>
-The second missing value plot is based on our second data source, which is the questionnaire from [National Center for Health Statistics](https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Questionnaire).
+The second missing value plot is based on our second data source, which is the questionnaire from [National Center for Health Statistics](https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Questionnaire).  
+
 The y-axis is the codes of questions, and the x-axis represents each respondent.  
 In the data transformation part, we have filtered our data according to the response to question DIQ010, which is whether "doctor told you have diabetes”. Since we are only interested in people who have been diagnosed with diabetes. Therefore we filter the data to include people who answered yes to this question.  
-We can see the data from DIQ160 to DIQ180 are all missing. When we saw this many missing values, we thought we can not use this data. But as we look through all the questions inside the questionnaire, we found out that the missing values are due to the nature of the questionnaire. People will be directed to different questions based on their answers to the previous questions. There are `CHECK ITEM` inside the questionnaire, according to the answers to the `CHECK ITEM`, people will skip some questions inside the questionnaire. For example, since all the participants in our filtered data are diabetes patients, so their response to the DIQ159 CHECK ITEM is yes, and this will be directed to DIQ.050 and ignore the question from DIQ160 to DIQ180. Thus, even though there are s lot of missing values, because of the nature of the questionnaire, we think this data is still valid.  
+
+We can see the data from DIQ160 to DIQ180 are all missing. When we saw this many missing values, we thought we can not use this data. But as we look through all the questions inside the questionnaire, we found out that the missing values are due to the nature of the questionnaire. People will be directed to different questions based on their answers to the previous questions. There are `CHECK ITEM` inside the questionnaire, according to the answers to the `CHECK ITEM`, people will skip some questions inside the questionnaire. For example, since all the participants in our filtered data are diabetes patients, so their response to the DIQ159 CHECK ITEM is yes, and this will be directed to DIQ.050 and ignore the question from DIQ160 to DIQ180. Thus, even though there are a lot of missing values, because of the nature of the questionnaire, we think this data is still valid.  
 
 All the files the third data source [CDC WONDER](https://wonder.cdc.gov/ucd-icd10.html) do not have any missing values.
 

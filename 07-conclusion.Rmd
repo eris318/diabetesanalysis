@@ -1,2 +1,15 @@
 # Conclusion
 
+## Main takeaways
+From the statistical graph of factors on diabetes, we can get some practical takeaways for our life. For example, being overweight or obese will increase the likelihood of getting diabetes, and physical activity can help people lower the risk of getting diabetes. People should increase their awareness of hypertension and high cholesterol. Also, people should pay more attention to their blood sugar level when they enter the age of 40 because that is the high incidence of diabetes for the general population.
+
+## Limitation
+There are some limitations in our exploration, for example, we fail to facet on state level under `choroplethr` package. If we can conquer this problem, then we could see and compare the trend of diagnosed diabetes rate change during past years with respect to states.  
+
+Lacking data on the District of Columbia is also our limitation. After the Cleveland dot plot, we see the District of Columbia has the highest death rate, we want to further analyze why DC has such high diabetes death rate. However, after hard-working on searching the related data, we didn’t find proper data to analyze the fact.  
+
+Another limitation we want to share here is the insufficient data on type 1, type 2, and gestational diabetes. We find the A1C level of diagnosed diabetes patients, but the data did not specify which category did the diabetes patient belong to. And this impedes us in analyzing the difference between diabetes.  
+
+## Future directions
+In our future directions, we want to explore the difference between different types of diabetes, such as how to do type 1 and type 2 patients behave on taking insulin or how the blood sugar level change during pregnancy. We can also explore more about the District of Columbia and West Virginia.  
+

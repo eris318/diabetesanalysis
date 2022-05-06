@@ -33,4 +33,17 @@ diabetes_death %>%
     transition=1000)
 ```
 
+## Instructions on how to engage
+We do an interactive plot between diagnosed diabetes percentage and death rate from 2000 to 2018 by states. 
+Visitors can click the legend on right to choose or cancel the state they want, and focus on which state they are interested in. By double-clicking, visitors can select a specific state to view. And by a single click, visitors can add or delete another state.
+Visitors can drag the slider at the bottom to view the change by year from 2000 to 2018. Visitors can also click the play button to view the animation change by year.
 
+## Commentary
+We can see West Virginia is a very obvious outlier, with a high diagnosed diabetes percentage and high death rate. And the situation in West Virginia is getting worse and worse each year.  
+
+From the animation, we can see the correlation between diagnosed diabetes percentage and death rate changes a lot during the past 18 years. They show a highly positive relationship in the year 2000, and the positive correlation became weaker in the next years. this positive trend may be caused by the technology and medication improvement in recent two decades. Also, people’s awareness of diabetes has raised during these years.
+
+## Limitation and Improvement
+There is one issue in this animation, CDC data does not record the percentage of diagnosed diabetes in Hawaii in 2004. So when the animation plays to 2004, Hawaii will disappear from the plot and the other states will have another factor level without Hawaii, so the dots on the plot seems exchanged, while it is actually just reordered without Hawaii.  
+
+We were originally going to add buttons in the plot to let visitors change variables and change plot types. But during the realization, we could not assign new x and y to each button, so we did not accomplish this goal.
